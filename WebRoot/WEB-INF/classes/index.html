@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>testing</title>
+  </head>
+  
+  <body>
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+  $(function() {
+	  $.getJSON("files/oepn", {
+		  filename: "a.doc",
+		  id: 1
+	  }).done(function(data) {
+		  console.log(data)
+	  })
+  })
+  </script>
+    pages for testing    LocalWebServer
+  </body>
+</html>
