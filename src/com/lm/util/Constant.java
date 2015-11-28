@@ -18,4 +18,6 @@ public class Constant {
 	public static final int BUFFER_SIZE = 1024;
 
 
+	public static final String FILE_PARENT_PATH="F:/temp/";
+
 }

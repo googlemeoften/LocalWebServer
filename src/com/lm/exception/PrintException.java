@@ -1,4 +1,4 @@
-package com.lm.util;
+package com.lm.exception;
 
 /**
  * Created by LiuMian on 2015/11/27.

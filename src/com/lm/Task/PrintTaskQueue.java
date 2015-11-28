@@ -1,6 +1,8 @@
 package com.lm.Task;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -8,6 +10,8 @@ import java.util.concurrent.*;
  */
 public class PrintTaskQueue extends ArrayBlockingQueue<PrintTask>{
 
+    private List<PrintTask> printSucces;
+    private List<PrintTask> printFail;
     private static PrintTaskQueue printTasks = null;
     private ExecutorService executor;
 
@@ -15,6 +19,8 @@ public class PrintTaskQueue extends ArrayBlockingQueue<PrintTask>{
     private PrintTaskQueue(int capacity) {
         super(capacity);
         executor = Executors.newSingleThreadExecutor();
+        printFail = new ArrayList<PrintTask>();
+        printSucces = new ArrayList<PrintTask>();
     }
 
     public static PrintTaskQueue getPrintTaskQueue(){
@@ -43,9 +49,11 @@ public class PrintTaskQueue extends ArrayBlockingQueue<PrintTask>{
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                this.add(task);
                 return false;
             } catch (ExecutionException e) {
                 e.printStackTrace();
+                this.add(task);
                 return false;
             }
         }

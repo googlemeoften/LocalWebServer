@@ -1,11 +1,9 @@
 package com.lm.Task;
 
 import com.lm.model.PrintFile;
-import com.lm.util.PrintException;
+import com.lm.exception.PrintException;
 
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 /**
  * Created by LiuMian on 2015/11/27.

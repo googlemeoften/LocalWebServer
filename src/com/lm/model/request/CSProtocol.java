@@ -21,6 +21,11 @@ public class CSProtocol implements Serializable{
 
     private User user;
 
+//    private JSONObject json;
+
+    public CSProtocol() {
+    }
+
     public List<PrintFile> getFiles() {
         return files;
     }

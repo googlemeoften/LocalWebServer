@@ -18,9 +18,11 @@ public class Client implements Runnable{
     private InputStream is;
     private OutputStream os;
     private boolean isAlive;
+    private ClientAssistant assistant;
 
     public Client (){
         isAlive = true;
+        connectServer();
     }
 
     public void connectServer(){
@@ -28,19 +30,24 @@ public class Client implements Runnable{
             client = new Socket(Constant.SERVER_IP,Constant.SERVER_PORT);
             is = client.getInputStream();
             os = client.getOutputStream();
+            os.write("server connect succuse --".getBytes());
+            System.out.println("server connect succuse --");
         } catch (IOException e) {
             e.printStackTrace();
+
+            destroyClient();
         }
     }
 
     @Override
     public void run() {
-        byte[] bytes;
         while(isAlive){
             try {
-                bytes = new byte[is.available()];
+                byte[] bytes = new byte[512];
+                System.out.println("wait for message from server");
                 is.read(bytes);
-                parseBytes(bytes);
+                CSProtocol protocol = parseBytes(bytes);
+                doOperation(protocol);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -49,8 +56,24 @@ public class Client implements Runnable{
 
     }
 
-    private void parseBytes(byte[] bytes){
-        CSProtocol protocol = Help.parseByteToObject(bytes,CSProtocol.class);
+    private CSProtocol parseBytes(byte[] bytes){
+        return Help.parseByteToObject(bytes,CSProtocol.class);
+    }
+
+    private void doOperation(CSProtocol protocol){
+        assistant = new ClientAssistant(this);
+        assistant.assignTask(protocol);
+    }
+
+    public void sendCSProtocl(CSProtocol protocol){
+        byte[] bytes = Help.parseObjectToByte(protocol);
+        try {
+            os.write(bytes);
+            os.flush();
+        } catch (IOException e) {
+            System.out.println("œ˚œ¢∑¢ÀÕ ß∞‹");
+            e.printStackTrace();
+        }
 
     }
 
