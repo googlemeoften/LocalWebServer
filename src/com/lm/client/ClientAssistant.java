@@ -58,6 +58,12 @@ public class ClientAssistant {
     }
 
 
+    private int checkPaid(User user){
+
+        return user.getIsPay();
+    }
+
+
 
 
 
