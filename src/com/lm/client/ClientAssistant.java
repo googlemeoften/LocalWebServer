@@ -34,6 +34,9 @@ public class ClientAssistant {
         List<PrintFile> files = protocol.getFiles();
         Account account = protocol.getAccount();
         User user = protocol.getUser();
+
+
+
     }
 
     private void downloadFiles(List<PrintFile> files){
