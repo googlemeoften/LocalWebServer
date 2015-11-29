@@ -1,6 +1,9 @@
 package com.lm.test;
 
+import com.lm.exception.DownloadException;
 import com.lm.util.Constant;
+import com.lm.util.Help;
+import sun.net.www.http.HttpClient;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -17,10 +20,18 @@ public class TestDownload {
 
     public static void main(String[] args){
 
-        String url = "http://cquptcloudprint.oss-cn-hangzhou.aliyuncs.com/oFVKgjkSK8D2LOkFH0OMztYNhS9Y/Baby.docx";
+//        String url = "http://cquptcloudprint.oss-cn-hangzhou.aliyuncs.com/oFVKgjn3AuOnMhjaq9ud1QtQUYCI/Baby.docx";
+//        String url = "http://cquptcloudprint.oss-cn-hangzhou.aliyuncs.com/oFVKgjkSK8D2LOkFH0OMztYNhS9Y/打印机通信协议.doc";
+        String url = "http://cquptcloudprint.oss-cn-hangzhou.aliyuncs.com/oFVKgjn3AuOnMhjaq9ud1QtQUYCI/微机原理实验3.doc";
         String savePath = "D:/阿里云测试文件.docx";
 
-        downloadFile(url);
+//        downloadFile(url);
+        try {
+//            getURLResource(savePath,url);
+            Help.downloadFile(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -80,4 +91,49 @@ public class TestDownload {
         }
         return fileName;
     }
+
+
+    public static void getURLResource(String outputFile,String urlStr) throws Exception
+
+    {
+
+        FileWriter fw = new FileWriter(outputFile);
+
+        PrintWriter pw = new PrintWriter(fw);
+
+        URL resourceUrl = new URL(urlStr);
+
+        InputStream content = (InputStream) resourceUrl.getContent();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(content));
+
+        String line;
+
+        while ((line = in.readLine()) != null)
+
+        {
+
+            pw.println(line);
+
+        }
+
+        pw.close();
+
+        fw.close();
+
+    }
+
+
+    public static void downloadFileByHttpClient(String urlStr){
+        URL url = null;
+        try {
+            url = new URL(urlStr);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
 }

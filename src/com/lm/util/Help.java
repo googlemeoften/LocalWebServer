@@ -3,10 +3,7 @@ package com.lm.util;
 import com.lm.exception.DownloadException;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.Socket;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,9 +100,10 @@ public class Help {
 
         String fileName = getFileNameFromUrl(httpUrl);
         String filePath =Constant.FILE_PARENT_PATH+fileName;
+        String encodeUrl = encodeUrl(httpUrl);
         URL url = null;
         try {
-            url = new URL(httpUrl);
+            url = new URL(encodeUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -115,9 +113,22 @@ public class Help {
             e1.printStackTrace();
         }
 
+        HttpURLConnection conn = null;
         try {
-            URLConnection conn = url.openConnection();
-            InputStream inStream = conn.getInputStream();
+            conn = (HttpURLConnection)url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        InputStream inStream = null;
+        try {
+            inStream = conn.getInputStream();
+        } catch (IOException e) {
+            System.out.println("conn.getInputStream error");
+            e.printStackTrace();
+        }
+
+        try {
             FileOutputStream fs = new FileOutputStream(filePath);
 
             int bufferSize = 0;
@@ -134,6 +145,7 @@ public class Help {
     }
 
     public static String getFileNameFromUrl(String url){
+        //截取文件名以及后缀
         Pattern pattern = Pattern.compile("[\\w]+[\\.][\\w]{3,4}");
 
         Matcher matcher = pattern.matcher(url);
@@ -141,6 +153,27 @@ public class Help {
         while(matcher.find()){
             fileName = matcher.group();
         }
+        System.out.println("fileName: "+fileName);
         return fileName;
+    }
+
+    //对路径里面的中文字符编码
+    public static String encodeUrl(String url){
+
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+        String preUrl = url.substring(0,url.lastIndexOf("/")+1);
+        String encodeUrl = "";
+        try {
+            String encodeFileName = URLEncoder.encode(fileName,"utf-8");
+            System.out.println("encodeFileName: "+encodeFileName);
+            encodeUrl = preUrl+URLEncoder.encode(fileName,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("url: "+url);
+        System.out.println("encodeUrl: "+encodeUrl);
+
+        return encodeUrl;
     }
 }
