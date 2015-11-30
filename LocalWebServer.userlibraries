@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="apache-httpclient:commons-httpclient:3.1">
+    <archive path="C:/Users/刘冕/.m2/repository/apache-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar" />
+    <archive path="C:/Users/刘冕/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" />
+    <archive path="C:/Users/刘冕/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar" />
+  </library>
+  <library name="com.alibaba:fastjson:1.1.40">
+    <archive path="C:/Users/刘冕/.m2/repository/com/alibaba/fastjson/1.1.40/fastjson-1.1.40.jar" />
+  </library>
+</eclipse-userlibraries>
+

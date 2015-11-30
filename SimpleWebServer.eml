@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="com.alibaba:fastjson:1.1.40" value="project"/>
+		<level name="apache-httpclient:commons-httpclient:3.1" value="project"/>
+	</levels>
+</component>
